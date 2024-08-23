@@ -1,0 +1,42 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.foot-heading {
+    font-size: 13px;
+}
+
+.foot-heading>a {
+    text-decoration: none;
+
+}
+
+.foot-content>p {
+    font-size: 14px;
+    padding: 2px;
+
+}
+
+.foot-content>p>a {
+    text-decoration: none;
+    line-height: 11px;
+}
+
+.foot-icons>ul>li>a {
+    background: #fff;
+    width: 100;
+    font-size: 21px;
+    border-radius: 38%;
+}
+
+.foot-heading-copy {
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.foot-heading-copy>a{
+    text-decoration: none;
+}

@@ -1,0 +1,65 @@
+
+.roboto-medium {
+    font-family: "Roboto", sans-serif;
+    font-weight: 500;
+    font-style: normal;
+  }
+  .roboto-bold {
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+  }
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+
+.crud-table{
+    
+}
+.crud-table-img{
+   
+    /* width: 90%;
+    margin: auto; */
+
+}
+.corp-img{
+    width: 150px;
+}
+.crud-table-img>img{
+    width: 100%;
+    margin: auto;
+   
+}
+.crud-table>tbody>tr>td:nth-child(6){
+
+}
+.corp-links{
+    color: rgb(239, 230, 230) !important;
+    text-decoration: none;
+    font-size: 14px;
+}
+.corp-footer-h5{
+    font-size: 15px;
+}
+.corp-data{
+    letter-spacing: 0.5px;
+    white-space: 2px;
+    font-size: 16px;
+    font-weight: 450;
+    line-height: 12px;
+
+}
+
+/* media query */
+@media only screen and (max-width: 300px) {
+
+    .crud-table>tbody{
+        /* display: flex;
+        flex-wrap: wrap;
+        border: 1px solid black; */
+    }
+   
+}

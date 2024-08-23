@@ -6,10 +6,12 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import Layout from "../components/Layout/Layout.jsx";
 import { Link, useNavigate } from "react-router-dom";
+import "../assets/Custom.css";
 
 const Home = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const [number, setNumber] = useState("");
   const [password, setPassword] = useState("");
   const [productPictures, setProductPictures] = useState([]);
 
@@ -19,7 +21,7 @@ const Home = () => {
   const navigate = useNavigate();
 
   //getUser
-  const getAllUsers = async () => { 
+  const getAllUsers = async () => {
     try {
       const { data } = await axios.get("/api/v1/auth/get-user");
       setAllUsers(data.users);
@@ -41,10 +43,10 @@ const Home = () => {
 
   //createUser
   const submitForm = () => {
-    
     const form = new FormData();
     form.append("name", name);
     form.append("email", email);
+    form.append("number", number);
     form.append("password", password);
 
     for (let pic of productPictures) {
@@ -60,7 +62,7 @@ const Home = () => {
       toast.error(data?.message);
     } else {
       toast.success("User Created Successfully");
-      // navigate("/dashboard/admin/products");
+      navigate("/");
     }
   };
   const handleShow = () => setShow(true);
@@ -85,79 +87,58 @@ const Home = () => {
 
   const renderProducts = () => {
     return (
-      <Table style={{ fontSize: 12 }} responsive="sm">
+      <Table style={{ fontSize: 12 }} responsive="sm" className="crud-table">
         <thead>
-          <tr>
+          <tr style={{ fontSize: 15 }}>
             <th>#</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Password</th>
+            <th> Number</th>
+
             <th>Images</th>
 
             <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="mb-3">
           {allUsers.length > 0
             ? allUsers.map((user, id) => (
-              
-                <tr key={user._id}>
-                  <td>{id + 1}</td>
-                  <td>{user.name}</td>
-                  <td>{user.email}</td>
-                  <td>{user.password}</td>
-                  <td> 
-                  <div style={{ display: "flex" }}>
-              {user.productPictures.map((picture) => (
-                <>
-                  <div className="productImgContainer">
-                    <img
-                      src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
-                        picture.img
-                      }`}
-                      alt="images"
-                    />
-                  </div>
-                </>
-              ))}
-            </div>
-                     </td>
-                  
-                  {/* <td>
+                <tr key={user._id} className="pt-2" >
+                  <td className="corp-data">{id + 1}</td>
+                  <td className="corp-data">{user.name}</td>
+                  <td className="corp-data">{user.email}</td>
+                  <td className="corp-data">{user.number}</td>
+
+                  <td className="corp-img">
                     <div style={{ display: "flex" }}>
-                      {product.productPictures.map((picture) => (
-                        <div className="productImgContainer">
-                          <img
-                            src={`../../public/uploads/${picture.img}`}
-                            alt="images"
-                          />
-                        </div>
+                      {user.productPictures.map((picture) => (
+                        <>
+                          <div className="productImgContainer crud-table-img">
+                            <img
+                              src={`${import.meta.env.VITE_REACT_APP_MAIN_URL}${
+                                picture.img
+                              }`}
+                              alt="images"
+                            />
+                          </div>
+                        </>
                       ))}
                     </div>
-                  </td> */}
+                  </td>
 
                   <td>
-                    {/* <button
-                      onClick={() => showProductDetailsModal(product)}
-                      className="p-1 btn btn-primary"
-                    >
-                      info
-                    </button> */}
-                    <button className="p-1 btn btn-warning m-1">
-                      <Link
-                        key={user._id}
-                        to={`/update-user/${user.slug}`}
-                      >
+                    <button className=" btn btn-warning m-1">
+                      <Link key={user._id} to={`/update-user/${user.slug}`} style={{textDecoration:"none"}}>
                         Edit
                       </Link>
                     </button>
                     <button
-                      className="p-1 btn btn-danger"
+                      className=" btn btn-danger"
                       onClick={() => {
                         handleDelete(user._id);
                       }}
                     >
-                      del
+                      Delete
                     </button>
                   </td>
                 </tr>
@@ -174,16 +155,16 @@ const Home = () => {
       <Modal
         show={show}
         handleClose={handleClose}
-        modalTitle={"Add New Product"}
+        modalTitle={"Add New User"}
         onSubmit={submitForm}
       >
         <Input
           label="Name"
           value={name}
-          placeholder={`Product Name`}
+          placeholder={`User`}
           onChange={(e) => setName(e.target.value)}
         />
-       
+
         <Input
           label="email"
           type="email"
@@ -192,14 +173,19 @@ const Home = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
         <Input
+          label="number"
+          type="number"
+          value={number}
+          placeholder={`number`}
+          onChange={(e) => setNumber(e.target.value)}
+        />
+
+        <Input
           label="Password"
           value={password}
           placeholder={`Password`}
           onChange={(e) => setPassword(e.target.value)}
         />
-        
-
-        
 
         {productPictures.length > 0
           ? productPictures.map((pic, index) => (
@@ -210,6 +196,7 @@ const Home = () => {
           type="file"
           multiple
           name="productPicture"
+          className="mt-2"
           onChange={handleProductPictures}
         />
       </Modal>
@@ -292,8 +279,8 @@ const Home = () => {
       <Container>
         <Row>
           <Col md={12}>
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
-              <h3>Products</h3>
+            <div style={{ display: "flex", justifyContent: "space-between", margin:"10px" }}>
+              <h4>All Products</h4>
               <button onClick={handleShow} className="btn btn-primary">
                 Add
               </button>

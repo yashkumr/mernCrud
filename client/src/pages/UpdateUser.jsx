@@ -9,6 +9,7 @@ const UpdateUser = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [productPictures, setProductPictures] = useState([]);
+  const [number, setNumber] = useState("");
 
   const [id, setId] = useState("");
 
@@ -23,6 +24,7 @@ const UpdateUser = () => {
       setName(data.user.name),
       setId(data.user._id),
       setEmail(data.user.email),
+      setNumber(data.user.number),
       setPassword(data.user.password)
    
     } catch (error) {
@@ -46,6 +48,7 @@ const UpdateUser = () => {
       productData.append("name", name);
       productData.append("email", email);
       productData.append("password", password);
+      productData.append("number", number);
 
       for (let pic of productPictures) {
         productData.append("productPicture", pic);
@@ -106,6 +109,16 @@ const UpdateUser = () => {
                   placeholder="password"
                   className="form-control"
                   onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className="mb-3">
+                <label>Number</label>
+                <input
+                  type="number"
+                  value={number}
+                  placeholder="number"
+                  className="form-control"
+                  onChange={(e) => setNumber(e.target.value)}
                 />
               </div>
             

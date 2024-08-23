@@ -38,6 +38,15 @@ router.put("/update-user/:pid",upload.fields([{ name: "mainImage",maxCount: 1 },
 //delete user
 router.delete("/delete-user/:id", deleteUserController);
 
+//Protected UserRoute
+// router.get("/user-auth", requireSignIn, (req, res) => {
+//     res.status(200).send({ ok: true });
+//   });
+  //Protected admin route
+  // router.get("/admin-auth", requireSignIn, isAdmin, (req, res) => {
+  //   res.status(200).send({ ok: true });
+  // });
+
 
 
 

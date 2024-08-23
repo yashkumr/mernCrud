@@ -4,8 +4,7 @@ import userModel from "../models/userModel.js";
 //createuserController
 export const createUserController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
-    console.log("hello");
+    const { name, email, password,number} = req.body;
      console.log(req.body);
 
     let productPictures = [];
@@ -22,10 +21,13 @@ export const createUserController = async (req, res) => {
       return res.send({ message: "Name is required" });
     }
     if (!email) {
-      return res.send({ message: "email is required" });
+      return res.send({ message: "Email is required" });
     }
-    if (!password) {
-      return res.send({ message: "password is required" });
+    if (!password && password !== 10) {
+      return res.send({ message: "Password is required  & 10 character long" });
+    }
+    if(!number ){
+      return res.send({message:"Number is Required"});
     }
 
     //chech user
@@ -42,6 +44,7 @@ export const createUserController = async (req, res) => {
       slug: slugify(name),
       productPictures,
       email,
+      number,
       password,
     }).save();
 
@@ -104,7 +107,7 @@ export const getSingleUserController = async (req, res) => {
 
 export const updateUserController = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { name, email, password,number } = req.body;
 
     let productPictures = [];
     const { productPicture } = req.files;
@@ -121,6 +124,7 @@ export const updateUserController = async (req, res) => {
         name: name,
         slug: slugify(name),
         email: email,
+        number: number,
         password: password,
         productPictures,
       },
